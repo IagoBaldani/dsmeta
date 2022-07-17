@@ -38,7 +38,6 @@ public class SmsService {
 
         StringBuilder bodyMsg = new StringBuilder();
 
-
         bodyMsg.append("Vendedor " + sale.getSellerName());
         String amountSaleFormated = String.format("R$%.2f", sale.getAmount());
         bodyMsg.append(" realizou uma venda de " + amountSaleFormated +"!");
