@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {BASE_URL} from "../../utils/request";
 import {Sale} from "../../models/Sale";
+import {toast} from "react-toastify";
 
 function SalesCard() {
 
@@ -24,9 +25,15 @@ function SalesCard() {
 
         axios.get(`${BASE_URL}/sales?minDate=${dMin}&maxDate=${dMax}`)
             .then(response => {
-                setSales(response.data.content);
+                    if(response.data.content.length === 0){
+                     toast.info("Não há nenhuma venda no período informado!");
+                    }
+                    setSales(response.data.content);
             })
-            .catch()
+            .catch( e => {
+                toast.error("Erro ao tentar listar vendas. Por favor, tente novamente mais tarde.");
+                console.log(e);
+            });
     }, [minDate, maxDate])
 
     return (
